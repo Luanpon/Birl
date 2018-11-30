@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class SelecionaExercicio extends AppCompatActivity implements SensorEventListener{
+public class SelecionaExercicio extends AppCompatActivity implements SensorEventListener,MediaPlayer.OnCompletionListener{
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -27,6 +28,7 @@ public class SelecionaExercicio extends AppCompatActivity implements SensorEvent
     private int erro;
     private int contador;
     private TextView textView;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +84,10 @@ public class SelecionaExercicio extends AppCompatActivity implements SensorEvent
             passo=0;
             contador = contador + 1;
             textView.setText(Integer.toString(contador));
-            Vibrar();
             minpos=milhao;
             maxpos=milhao*(-1);
-
+            Vibrar();
+            Tocar();
 
         }
 
@@ -98,12 +100,21 @@ public class SelecionaExercicio extends AppCompatActivity implements SensorEvent
         vibrator.vibrate(milliseconds);
     }
     public void Tocar(){
-        MediaPlayer mp = MediaPlayer.create(SelecionaExercicio.this,R.raw.bril );
-        //mp.release();
+        mp = MediaPlayer.create(SelecionaExercicio.this,R.raw.beep );
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+    });
         mp.start();
     }
 
-
+    @Override
+    public void onCompletion(MediaPlayer mp){
+        mp.release();
+}
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 

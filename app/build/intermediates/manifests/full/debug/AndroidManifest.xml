@@ -8,6 +8,8 @@
         android:minSdkVersion="19"
         android:targetSdkVersion="28" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
@@ -25,8 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.luanp.birl.MenuPrincipal" />
-        <activity android:name="com.example.luanp.birl.SelecionaExercicio" />
+        <activity
+            android:name="com.example.luanp.birl.MenuPrincipal"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.luanp.birl.SelecionaExercicio"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

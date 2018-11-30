@@ -5,6 +5,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,13 +82,25 @@ public class SelecionaExercicio extends AppCompatActivity implements SensorEvent
             passo=0;
             contador = contador + 1;
             textView.setText(Integer.toString(contador));
+            Vibrar();
             minpos=milhao;
             maxpos=milhao*(-1);
+
 
         }
 
         Log.d("Exercicio:", " X=" + event.values[0] + " | Y=" + event.values[1] + " | Z=" + event.values[2]);
 
+    }
+    public void Vibrar(){
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        long milliseconds = 100;
+        vibrator.vibrate(milliseconds);
+    }
+    public void Tocar(){
+        MediaPlayer mp = MediaPlayer.create(SelecionaExercicio.this,R.raw.bril );
+        //mp.release();
+        mp.start();
     }
 
 
